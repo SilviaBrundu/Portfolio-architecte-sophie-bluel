@@ -4,12 +4,17 @@
 fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(data => {
-        gallery(data)
+        createGallery(data)
+        //createGallery(data.filter(project => project.category.name==="Objets"))
     })
 
 // fonction qui va afficher les images de la galerie
-function gallery(data){
+function createGallery(data){
+    const filters = []
     for (let i = 0; i < data.length; i ++) {
+        if (!filters.includes(data[i].category.name)){ //creation des 3 category, le "!" inverse une condition
+            filters.push(data[i].category.name)
+        } 
         const gallery = document.querySelector('.gallery')
         const cards = document.createElement ('figure')
         gallery.appendChild(cards) 
@@ -19,5 +24,8 @@ function gallery(data){
         const title = document.createElement ('figcaption')
         title.innerHTML = data[i].title
         cards.appendChild(title)
-    }}
+    }
+    console.log(filters)
+}
+
 
