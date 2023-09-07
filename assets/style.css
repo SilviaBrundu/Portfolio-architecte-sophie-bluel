@@ -152,6 +152,7 @@ li:hover {
 	border-radius: 20px;
 	border-color: #1D6154;
 	border-width: 1px;
+	border-style: solid;
 }
 .categories:hover {
 	background-color: #1D6154;
