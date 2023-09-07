@@ -36,9 +36,10 @@ function createGallery(project){
 
 //fonction qui crée les boutons
 function createButton(categories) {
-    const divButton = document.createElement('div') //création bouton "tous"
-    document.querySelector('#portfolio').appendChild(divButton) 
-    const buttonAll = document.createElement('button')
+    const portfolio = document.querySelector('#portfolio')
+    const divButton = document.createElement('div') 
+    portfolio.appendChild(divButton) 
+    const buttonAll = document.createElement('button')  //création bouton "tous"
     buttonAll.textContent = "Tous"
     divButton.appendChild(buttonAll)
 
@@ -47,6 +48,8 @@ function createButton(categories) {
         filtersButton.textContent = category.name
         divButton.appendChild(filtersButton)
     })
+
+    portfolio.insertBefore(divButton,portfolio.children[1]); //permet de placer correctement la div button 
 }
 
 
