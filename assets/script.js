@@ -4,7 +4,6 @@ fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(project => {
         createGallery(project)
-        //createGallery(project.filter(project => project.category.name==="Objets"))
     })
 
 fetch('http://localhost:5678/api/categories')
@@ -24,10 +23,10 @@ function createGallery(project){
         } 
         const gallery = document.querySelector('.gallery')
         const cards = document.createElement ('figure')
-        gallery.appendChild(cards) 
+        gallery.appendChild(cards)
         const image = document.createElement ('img')
         image.src = project[i].imageUrl
-        cards.appendChild(image) 
+        cards.appendChild(image)
         const title = document.createElement ('figcaption')
         title.innerHTML = project[i].title
         cards.appendChild(title)
@@ -37,17 +36,18 @@ function createGallery(project){
 
 //fonction qui crée les boutons
 function createButton(categories) {
-    const divButton = document.createElement('div');
-    document.querySelector('#portfolio').appendChild(divButton); 
-    const buttonAll = document.createElement('button');
-    buttonAll.textContent = "tous";
-    divButton.appendChild(buttonAll);
+    const divButton = document.createElement('div') //création bouton "tous"
+    document.querySelector('#portfolio').appendChild(divButton) 
+    const buttonAll = document.createElement('button')
+    buttonAll.textContent = "Tous"
+    divButton.appendChild(buttonAll)
 
-    categories.forEach( category => {
-    const filtersButton = document.createElement('button');
-    filtersButton.textContent = category.name;
-    divButton.appendChild(filtersButton);
-})}
+    categories.forEach( category => { //création des 3 boutons différents
+        const filtersButton = document.createElement('button')
+        filtersButton.textContent = category.name
+        divButton.appendChild(filtersButton)
+    })
+}
 
 
 
