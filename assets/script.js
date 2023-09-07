@@ -1,12 +1,19 @@
-
 // creation du lien avec l api via fetch
 // on recupere les données avec then et on utilise json
 fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(project => {
         createGallery(project)
-        //createGallery(data.filter(project => project.category.name==="Objets"))
+        //createGallery(project.filter(project => project.category.name==="Objets"))
     })
+
+fetch('http://localhost:5678/api/categories')
+    .then(response => response.json()) 
+    .then(categories => {
+        createButton(categories)
+        console.log(categories)
+    }) 
+  
 
 // fonction qui va afficher les images de la galerie
 function createGallery(project){
@@ -27,5 +34,20 @@ function createGallery(project){
     }
     console.log(filters)
 }
+
+//fonction qui crée les boutons
+function createButton(categories) {
+    const divButton = document.createElement('div');
+    document.querySelector('#portfolio').appendChild(divButton); 
+    const buttonAll = document.createElement('button');
+    buttonAll.textContent = "tous";
+    divButton.appendChild(buttonAll);
+
+    categories.forEach( category => {
+    const filtersButton = document.createElement('button');
+    filtersButton.textContent = category.name;
+    divButton.appendChild(filtersButton);
+})}
+
 
 
