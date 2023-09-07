@@ -37,15 +37,18 @@ function createGallery(project){
 //fonction qui crée les boutons
 function createButton(categories) {
     const portfolio = document.querySelector('#portfolio')
-    const divButton = document.createElement('div') 
+    const divButton = document.createElement('div')
+    divButton.classList.add('all') 
     portfolio.appendChild(divButton) 
     const buttonAll = document.createElement('button')  //création bouton "tous"
     buttonAll.textContent = "Tous"
+    buttonAll.classList.add('categories')
     divButton.appendChild(buttonAll)
 
     categories.forEach( category => { //création des 3 boutons différents
         const filtersButton = document.createElement('button')
         filtersButton.textContent = category.name
+        filtersButton.classList.add('categories')
         divButton.appendChild(filtersButton)
     })
 
