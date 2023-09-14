@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #fffef8;
 }
 ol, ul {
 	list-style: none;
@@ -158,31 +159,36 @@ li:hover {
 	background-color: #1D6154;
 	color: white;
 }
-#contact {
+#contact,
+#login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+#contact,
+#login > * {
 	text-align: center;
 
 }
-#contact h2{
+#contact h2 {
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form,
+#login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -199,11 +205,22 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #0e3027;
+}
+
+.forgetPassword {
+	display: flex;
+	justify-content: center;
+	color: black;
 }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
