@@ -1,39 +1,40 @@
-
-// - crée un evenement submit de la section login ************
-// - recuperer l'api (avec fetch) **************
-// - crée des conditions et afficher les messages d erreurs **************
-// - récuperer les données , userId et token
-
-
-const login = document.querySelector("#login");
+const login = document.querySelector('#login');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const error = document.getElementById('error')
 
 //création evenement type submit
-login.addEventListener("submit", function () {
+login.addEventListener('submit', function (event) {
+    event.preventDefault(); // permet de retirer l'envoie du formulaire par default
+    const loginId = { email: email.value, password: password.value,
+    };
 
-  fetch("http://localhost:5678/api/users/login")
+  fetch("http://localhost:5678/api/users/login", {
+    //je modifie le comportement par default et passe de get a post
+    method: "POST",
+    headers: { "Content-type" : "application/json" },
+    body: JSON.stringify(loginId), // stringify permet de convertir un object en une chaine de caractere
+    })
+
     // conditions qui affichent les messages d erreurs 
     .then((response) => {
     console.log(response);
-      if (response.status == 404)
-        alert("User not found");
-      if (response.status == 401)
-        alert("Not Authorized");
-      if (response.status == 200) {
+      if (response.status === 404)
+        error.innerHTML = 'User Not Found'
+      if (response.status === 401)
+        error.innerHTML = 'Not Authorized'
+      if (response.status === 200) {
         return response.json();
       }
     })
 
-    // je recupere les données
+    // // - récuperer les données , userId et token
     .then((data) => {
-        //je crée ma condition qui affichera la page d'accueil si jai recuperé les données
-      if (data) {
-        // localStorage permet d'enregistrer les paires clé/valeur dans le navigateur.
-        localStorage.setItem("userId", data.userId);
+      if (data) { //je crée ma condition qui affichera la page d'accueil si jai recuperé les données
+        localStorage.setItem("userId", data.userId); // localStorage permet d'enregistrer les paires clé/valeur dans le navigateur.
         localStorage.setItem("token", data.token);
-        //redirige vers la page d 'accueil
-        location.href('./index.html')
+        location.href = 'index.html'; //redirige vers la page d 'accueil
       }
     })
 
-    
 })
