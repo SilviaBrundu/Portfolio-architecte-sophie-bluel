@@ -26,10 +26,15 @@ time, mark, audio, video {
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+header, hgroup, menu, nav, section {
 	display: block;
 }
 
+html {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
 body {
 	line-height: 1;
 	background-color: #fffef8;
@@ -55,15 +60,24 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
+	display: flex;
+    flex-direction: column;
+    height: 100%;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+}
+
+main {
+	max-width: 1140px;
+	margin:auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 90px;
 }
 
 section {
@@ -259,6 +273,6 @@ input[type="submit"]:hover {
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	padding: 40px 100px;
+	background-color: white;
 }
-
