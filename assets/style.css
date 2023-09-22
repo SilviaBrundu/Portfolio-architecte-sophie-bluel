@@ -106,6 +106,35 @@ h2{
 	color: #1D6154
 }
 
+.edit-blackbar {
+    background-color: black;
+}
+
+.edition {
+    display: flex;
+    justify-content: center;
+    height: 55px;
+}
+
+.edition-btn {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    border-style: none;
+    cursor: pointer;
+}
+
+.edition-btn i {
+    padding-right: 10px;
+    color: white;
+}
+
+.edition-btn p {
+    font-family: 'work sans';
+	font-size: 16px;
+    color: white;
+}
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -127,6 +156,8 @@ nav a {
 	color: black;
 }
 
+#login:hover,
+#logout:hover,
 li:hover {
 	color: #B1663C;
 }
@@ -161,8 +192,36 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+	margin-left: 152px;
 }
 
+.projetsModifier {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Modifier {
+	cursor: pointer;
+	border: none;
+	display: flex;
+	background-color: #fffef8;
+	justify-content: center;
+	align-items: center;
+	height: fit-content;
+	margin-top: 7px;
+	padding-left: 30px;
+}
+
+
+.Modifier i {
+	padding-right: 12px;
+}
+
+.Modifier p {
+	font-family: 'Work Sans' ;
+	font-size: 16px;
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -276,33 +335,4 @@ footer nav ul {
 	justify-content: flex-end;
 	padding: 40px 100px;
 	background-color: white;
-}
-
-.edit-blackbar {
-    background-color: black;
-}
-
-.edition {
-    display: flex;
-    justify-content: center;
-    height: 55px;
-}
-
-.edition-btn {
-    display: flex;
-    align-items: center;
-    background-color: black;
-    border-style: none;
-    cursor: pointer;
-}
-
-.edition-btn i {
-    padding-right: 10px;
-    color: white;
-}
-
-.edition-btn p {
-    font-family: 'work sans';
-	font-size: 16px;
-    color: white;
 }

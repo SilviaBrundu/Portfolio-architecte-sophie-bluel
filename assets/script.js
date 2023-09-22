@@ -66,7 +66,7 @@ function createButton(categories) {  //fonction qui crée les boutons
     })
 
     //permet de placer correctement la div divButton
-    portfolio.insertBefore(divButton,portfolio.children[2]);  
+    portfolio.insertBefore(divButton,portfolio.children[1]);  
 }
 
 
@@ -93,7 +93,7 @@ function displayPage() {
     const edition = document.querySelector(".edition"); //affiche la barre noir
     edition.style.display = "flex";
 
-   
+    buttons.style.display = "none";
 
 }
   //***************************SI JE NE SUIS PAS AUTHENTIFIE **************************
@@ -109,7 +109,7 @@ function displayPage() {
     const edition = document.querySelector(".edition"); //cache la barre noir
     edition.style.display = "none";
 
-   
+    buttons.style.display = "flex";
   }
 }
 
