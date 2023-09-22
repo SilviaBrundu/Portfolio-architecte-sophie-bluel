@@ -6,7 +6,7 @@ fetch('http://localhost:5678/api/categories')
     .then(response => response.json())
     .then(categories => {
         createButton(categories)
-        const buttons = document.querySelectorAll('.category')
+        let buttons = document.querySelectorAll('.category')
         // i = 0 si i est inférieur au nombre de catégorie alors on rajoute une catégorie 
         // jusqu'a ce que toutes les catégories soient mises
         for (let i = 0; i < buttons.length; i++){
@@ -66,8 +66,50 @@ function createButton(categories) {  //fonction qui crée les boutons
     })
 
     //permet de placer correctement la div divButton
-    portfolio.insertBefore(divButton,portfolio.children[1]);  
+    portfolio.insertBefore(divButton,portfolio.children[2]);  
 }
 
 
+// ******Affichage Editeur *****
+
+
+displayPage();
+function displayPage() {
+    //***************************SI JE SUIS AUTHENTIFIE **************************
+    if (localStorage.getItem("token") && localStorage.getItem("userId")) { 
+        const login = document.getElementById("login");
+        login.style.display = "none"; // je cache le bouton login avec le display none
+        const logout = document.getElementById("logout");
+        logout.style.display = "block"; // et je sort le bouton logout a la place avec le display block
+        logout.addEventListener("click", function (event) { // des que je click sur logout 
+        event.preventDefault();
+        localStorage.clear(); // tout se vide et se reinitialise 
+        displayPage();
+    });
+
+    const Modifier = document.querySelector(".Modifier"); //affiche le bouton modifier
+    Modifier.style.display = "flex";
+    
+    const edition = document.querySelector(".edition"); //affiche la barre noir
+    edition.style.display = "flex";
+
+   
+
+}
+  //***************************SI JE NE SUIS PAS AUTHENTIFIE **************************
+  else {
+    const login = document.getElementById("login"); //j'affiche le bouton login
+    login.style.display = "block";
+    const logout = document.getElementById("logout"); //cache le bouton logout
+    logout.style.display = "none";
+
+    const Modifier = document.querySelector(".Modifier"); //cache le bouton modifier
+    Modifier.style.display = "none";
+    
+    const edition = document.querySelector(".edition"); //cache la barre noir
+    edition.style.display = "none";
+
+   
+  }
+}
 

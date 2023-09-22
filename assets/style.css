@@ -277,3 +277,32 @@ footer nav ul {
 	padding: 40px 100px;
 	background-color: white;
 }
+
+.edit-blackbar {
+    background-color: black;
+}
+
+.edition {
+    display: flex;
+    justify-content: center;
+    height: 55px;
+}
+
+.edition-btn {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    border-style: none;
+    cursor: pointer;
+}
+
+.edition-btn i {
+    padding-right: 10px;
+    color: white;
+}
+
+.edition-btn p {
+    font-family: 'work sans';
+	font-size: 16px;
+    color: white;
+}
