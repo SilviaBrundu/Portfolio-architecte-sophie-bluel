@@ -14,8 +14,8 @@ login.addEventListener('submit', function (event) {
 
   fetch("http://localhost:5678/api/users/login", {
     //je modifie le comportement par default et passe de get a post
-    method: "POST",
-    headers: { "Content-type" : "application/json" },
+    method: 'POST',
+    headers: { 'Content-type' : 'application/json' },
     body: JSON.stringify(loginId), // stringify permet de convertir un object en une chaine de caractere
     })
 
@@ -34,8 +34,8 @@ login.addEventListener('submit', function (event) {
     // - récuperer les données , userId et token
     .then((data) => {
       if (data) { //je crée ma condition qui affichera la page d'accueil si jai recuperé les données
-        localStorage.setItem("userId", data.userId); // localStorage permet d'enregistrer les paires clé/valeur dans le navigateur.
-        localStorage.setItem("token", data.token);
+        localStorage.setItem('userId', data.userId); // localStorage permet d'enregistrer les paires clé/valeur dans le navigateur.
+        localStorage.setItem('token', data.token);
         location.href = 'index.html'; //redirige vers la page d 'accueil
       }
     })

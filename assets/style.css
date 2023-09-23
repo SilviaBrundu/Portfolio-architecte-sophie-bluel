@@ -158,7 +158,7 @@ nav a {
 
 #login:hover,
 #logout:hover,
-li:hover {
+li a:hover {
 	color: #B1663C;
 }
 
@@ -192,7 +192,7 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
-	margin-left: 152px;
+	margin-left: 15px;
 }
 
 .projetsModifier {

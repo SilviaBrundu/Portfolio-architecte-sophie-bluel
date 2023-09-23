@@ -16,8 +16,9 @@ fetch('http://localhost:5678/api/categories')
             callApiWorks(event.target.textContent)     
             })    
         }
+        displayPage(buttons) 
     }) 
-
+    
 function callApiWorks (filter) {
     fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
@@ -54,7 +55,7 @@ function createButton(categories) {  //fonction qui crée les boutons
     divButton.classList.add('categories') 
     portfolio.appendChild(divButton) 
     const buttonAll = document.createElement('button')  //création du bouton "tous"
-    buttonAll.textContent = "Tous"
+    buttonAll.textContent = 'Tous'
     buttonAll.classList.add('category')
     divButton.appendChild(buttonAll)
 
@@ -71,45 +72,53 @@ function createButton(categories) {  //fonction qui crée les boutons
 
 
 // ******Affichage Editeur *****
-
-
-displayPage();
 function displayPage() {
+    
     //***************************SI JE SUIS AUTHENTIFIE **************************
-    if (localStorage.getItem("token") && localStorage.getItem("userId")) { 
-        const login = document.getElementById("login");
-        login.style.display = "none"; // je cache le bouton login avec le display none
-        const logout = document.getElementById("logout");
-        logout.style.display = "block"; // et je sort le bouton logout a la place avec le display block
-        logout.addEventListener("click", function (event) { // des que je click sur logout 
+    if (localStorage.getItem('token') && localStorage.getItem('userId')) { 
+
+        const login = document.getElementById('login');
+        login.style.display = 'none'; // je cache le bouton login avec le display none
+
+        const logout = document.getElementById('logout');
+        logout.style.display = 'block'; // et je sort le bouton logout a la place avec le display block
+
+        logout.addEventListener('click', function (event) { // des que je click sur logout 
         event.preventDefault();
         localStorage.clear(); // tout se vide et se reinitialise 
-        displayPage();
-    });
 
-    const Modifier = document.querySelector(".Modifier"); //affiche le bouton modifier
-    Modifier.style.display = "flex";
-    
-    const edition = document.querySelector(".edition"); //affiche la barre noir
-    edition.style.display = "flex";
+        displayPage()
+        });
 
-    buttons.style.display = "none";
+        const Modifier = document.querySelector('.Modifier'); //affiche le bouton modifier
+        Modifier.style.display = 'flex'; 
 
-}
+        const edition = document.querySelector('.edition'); //affiche la barre noir
+        edition.style.display = 'flex';
+
+        const btnFilters = document.querySelectorAll('.category'); //cache les boutons filtres
+        btnFilters.forEach((element) => {
+        element.style.visibility = "hidden";
+        }); 
+        console.log(btnFilters)
+    } 
   //***************************SI JE NE SUIS PAS AUTHENTIFIE **************************
-  else {
-    const login = document.getElementById("login"); //j'affiche le bouton login
-    login.style.display = "block";
-    const logout = document.getElementById("logout"); //cache le bouton logout
-    logout.style.display = "none";
+    else {
+        const login = document.getElementById('login'); //j'affiche le bouton login
+        login.style.display = 'block';
+        const logout = document.getElementById('logout'); //cache le bouton logout
+        logout.style.display = 'none';
 
-    const Modifier = document.querySelector(".Modifier"); //cache le bouton modifier
-    Modifier.style.display = "none";
+        const Modifier = document.querySelector('.Modifier'); //cache le bouton modifier
+        Modifier.style.display = 'none';
     
-    const edition = document.querySelector(".edition"); //cache la barre noir
-    edition.style.display = "none";
+        const edition = document.querySelector('.edition'); //cache la barre noir
+        edition.style.display = 'none';
 
-    buttons.style.display = "flex";
-  }
+        const btnFilters = document.querySelectorAll('.category'); //laisse visible les boutons filtres
+        btnFilters.forEach((element) => {
+        element.style.visibility = "visible";
+        }); console.log(btnFilters)
+    }
 }
 
