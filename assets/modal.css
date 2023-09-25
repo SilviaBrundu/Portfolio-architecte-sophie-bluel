@@ -10,6 +10,10 @@
     height: 67%;
 }
 
+.modal-wrapper {
+    width: 100%;
+}
+
 .body-modal {
     display: flex;
     flex-direction: column;
@@ -17,17 +21,18 @@
     align-items: center;
 
 }
-.button-close-modal,
-.button-left-modal {
+.icon-modal {
     cursor: pointer;
     border: none;
     background-color: transparent;
+    padding-top: 30px;
 }
 
 #title-modal-1,
 #title-modal-2 {
     color: black;
     font-family: 'work sans';
+    padding: 30px 0 50px 0;
 }
 
 .button-modal {
@@ -40,6 +45,7 @@
     border: none;
     width: 250px;
     height: 37px;
+    margin: 30px 0 50px 0;
     transition: transform 450ms, background-color 150ms;
 }  
 
