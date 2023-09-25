@@ -106,6 +106,8 @@ h2{
 	color: #1D6154
 }
 
+/** Mode Edition **/
+
 .edit-blackbar {
     background-color: black;
 }
@@ -252,10 +254,12 @@ li a:hover {
 	border-color: #1D6154;
 	border-width: 1px;
 	border-style: solid;
+	transition: transform 450ms, background-color 150ms;
 }
 
 .category:hover {
-	background-color: #1D6154;
+	transform: scale(1);
+    background-color: #1D6154;
 	color: white;
 }
 

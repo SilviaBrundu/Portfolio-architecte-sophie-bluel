@@ -81,7 +81,7 @@ function displayPage() {
         login.style.display = 'none'; // je cache le bouton login avec le display none
 
         const logout = document.getElementById('logout');
-        logout.style.display = 'block'; // et je sort le bouton logout a la place avec le display block
+        logout.style.display = 'flex'; // et je sort le bouton logout a la place avec le display block
 
         logout.addEventListener('click', function (event) { // des que je click sur logout 
         event.preventDefault();
@@ -105,9 +105,10 @@ function displayPage() {
   //***************************SI JE NE SUIS PAS AUTHENTIFIE **************************
     else {
         const login = document.getElementById('login'); //j'affiche le bouton login
-        login.style.display = 'block';
+        login.style.display = 'flex';
         const logout = document.getElementById('logout'); //cache le bouton logout
         logout.style.display = 'none';
+        logout.style.width = '100%'
 
         const Modifier = document.querySelector('.Modifier'); //cache le bouton modifier
         Modifier.style.display = 'none';
