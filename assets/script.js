@@ -15,9 +15,12 @@ fetch('http://localhost:5678/api/categories')
             // on associe les noms des catégories de chaque projet au noms des categories des boutons
             callApiWorks(event.target.textContent)     
             })    
-        }        
-        displayAuthElement(buttons)
-    }) 
+        }
+        const isAuth = localStorage.getItem('token') && localStorage.getItem('userId')
+        if (isAuth) {
+            displayAuthElements(buttons);
+        }
+    })
     
 function callApiWorks (filter) {
     fetch('http://localhost:5678/api/works')
@@ -40,9 +43,11 @@ function createGallery(project){
         const gallery = document.querySelector('.gallery')
         const cards = document.createElement ('figure')
         gallery.appendChild(cards)
+
         const image = document.createElement ('img')
         image.src = project[i].imageUrl
         cards.appendChild(image)
+        
         const title = document.createElement ('figcaption')
         title.innerHTML = project[i].title
         cards.appendChild(title)
@@ -54,6 +59,7 @@ function createButton(categories) {  //fonction qui crée les boutons
     const divButton = document.createElement('div')
     divButton.classList.add('categories') 
     portfolio.appendChild(divButton) 
+
     const buttonAll = document.createElement('button')  //création du bouton "tous"
     buttonAll.textContent = 'Tous'
     buttonAll.classList.add('category')
@@ -73,9 +79,7 @@ function createButton(categories) {  //fonction qui crée les boutons
 
 
 // ******Affichage Editeur *****
-function displayAuthElement() {
-
-if (localStorage.getItem('token') && localStorage.getItem('userId')) {
+function displayAuthElements() {
     const login = document.getElementById('login');
     login.innerHTML= 'logout'   //creation du logout
     login.href = '#'
@@ -89,7 +93,7 @@ if (localStorage.getItem('token') && localStorage.getItem('userId')) {
         location.reload(); 
         displayAuthElement();
     })
-}}
+}
 
 // fonction qui crée la barre noire
 
