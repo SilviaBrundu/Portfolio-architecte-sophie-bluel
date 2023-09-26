@@ -15,8 +15,8 @@ fetch('http://localhost:5678/api/categories')
             // on associe les noms des catégories de chaque projet au noms des categories des boutons
             callApiWorks(event.target.textContent)     
             })    
-        }
-        displayPage(buttons) 
+        }        
+        displayAuthElement(buttons)
     }) 
     
 function callApiWorks (filter) {
@@ -25,8 +25,8 @@ function callApiWorks (filter) {
     .then(projects => {
     // si ça correspond filter et filter qui n'est pas égale à "tous" ont trie les projets en fonction du nom de la catégorie
     // sinon on met tout les projets ensemble
-    const filteredProjects = filter && filter !== 'Tous' ? projects.filter(project => project.category.name === filter): projects
-    createGallery(filteredProjects) 
+        const filteredProjects = filter && filter !== 'Tous' ? projects.filter(project => project.category.name === filter): projects
+        createGallery(filteredProjects) 
     })
 }
 
@@ -59,6 +59,7 @@ function createButton(categories) {  //fonction qui crée les boutons
     buttonAll.classList.add('category')
     divButton.appendChild(buttonAll)
 
+
     categories.forEach(category => { //création des 3 boutons différents
         const filtersButton = document.createElement('button')
         filtersButton.textContent = category.name
@@ -72,54 +73,65 @@ function createButton(categories) {  //fonction qui crée les boutons
 
 
 // ******Affichage Editeur *****
-function displayPage() {
-    
-    //***************************SI JE SUIS AUTHENTIFIE **************************
-    if (localStorage.getItem('token') && localStorage.getItem('userId')) { 
+function displayAuthElement() {
 
-        const login = document.getElementById('login');
-        login.style.display = 'none'; // je cache le bouton login avec le display none
+if (localStorage.getItem('token') && localStorage.getItem('userId')) {
+    const login = document.getElementById('login');
+    login.innerHTML= 'logout'   //creation du logout
+    login.href = '#'
 
-        const logout = document.getElementById('logout');
-        logout.style.display = 'flex'; // et je sort le bouton logout a la place avec le display block
+    createBlackBarEditionMode();
+    createButtonEditProject();
 
-        logout.addEventListener('click', function (event) { // des que je click sur logout 
-        event.preventDefault();
+    login.addEventListener('click', function (event) { // des que je click sur logout 
+        event.preventDefault(); 
         localStorage.clear(); // tout se vide et se reinitialise 
+        location.reload(); 
+        displayAuthElement();
+    })
+}}
 
-        displayPage()
-        });
+// fonction qui crée la barre noire
 
-        const Modifier = document.querySelector('.Modifier'); //affiche le bouton modifier
-        Modifier.style.display = 'flex'; 
+function createBlackBarEditionMode() {
 
-        const edition = document.querySelector('.edition'); //affiche la barre noir
-        edition.style.display = 'flex';
+    const editBlackbar = document.createElement('div'); 
+    editBlackbar.classList.add('edit-blackbar');
+    document.body.appendChild(editBlackbar);  
 
-        const btnFilters = document.querySelectorAll('.category'); //cache les boutons filtres
-        btnFilters.forEach((element) => {
-        element.style.visibility = "hidden";
-        }); 
-        console.log(btnFilters)
-    } 
-  //***************************SI JE NE SUIS PAS AUTHENTIFIE **************************
-    else {
-        const login = document.getElementById('login'); //j'affiche le bouton login
-        login.style.display = 'flex';
-        const logout = document.getElementById('logout'); //cache le bouton logout
-        logout.style.display = 'none';
-        logout.style.width = '100%'
+    const edition = document.createElement('div');
+    edition.classList.add('edition');
+    editBlackbar.appendChild(edition);
 
-        const Modifier = document.querySelector('.Modifier'); //cache le bouton modifier
-        Modifier.style.display = 'none';
-    
-        const edition = document.querySelector('.edition'); //cache la barre noir
-        edition.style.display = 'none';
+    const iconPen = document.createElement("i"); //creation iconpen
+    iconPen.classList = "fa-solid fa-pen-to-square";
+    iconPen.setAttribute('id', 'icon-pen-edit-mode');
 
-        const btnFilters = document.querySelectorAll('.category'); //laisse visible les boutons filtres
-        btnFilters.forEach((element) => {
-        element.style.visibility = "visible";
-        }); console.log(btnFilters)
-    }
+    const editionModeBtn = document.createElement('button');// creation bouton mode edition
+    editionModeBtn.classList.add('edition-mode-button');
+    editionModeBtn.innerText = 'Mode édition';
+    edition.appendChild(iconPen)
+    edition.appendChild(editionModeBtn);
+
+    document.body.insertBefore(editBlackbar,document.body.children[0]);//place la div ou je veut dans le dom
+}
+
+// fonction qui crée le bouton modifier
+
+function createButtonEditProject () {
+    const editProject = document.querySelector('.edit-project') //creation bouton modifier
+
+    const iconPen2 = document.createElement("i"); //creation iconpen
+    iconPen2.classList = "fa-solid fa-pen-to-square";
+    iconPen2.setAttribute('id', 'icon-pen');
+
+    const editButton = document.createElement('button');
+    editButton.classList.add('edit-button');
+    editProject.appendChild(iconPen2)
+    editButton.innerText = 'Modifier'; 
+    editProject.appendChild(editButton);
+
+    const btnFilters = document.querySelector('.categories'); //cache les boutons des filtres
+    btnFilters.innerHTML = '' ;
 }
 

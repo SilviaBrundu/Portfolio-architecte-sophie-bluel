@@ -118,23 +118,21 @@ h2{
     height: 55px;
 }
 
-.edition-btn {
+.edition-mode-button {
     display: flex;
     align-items: center;
     background-color: black;
     border-style: none;
     cursor: pointer;
-}
-
-.edition-btn i {
-    padding-right: 10px;
-    color: white;
-}
-
-.edition-btn p {
-    font-family: 'work sans';
+	color: white;
+	font-family: 'work sans';
 	font-size: 16px;
-    color: white;
+}
+
+#icon-pen-edit-mode {
+	display: flex;
+	align-items: center;
+	color: white;
 }
 
 nav ul {
@@ -197,13 +195,18 @@ li a:hover {
 	margin-left: 15px;
 }
 
-.projetsModifier {
+.edit-project {
 	display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.Modifier {
+#icon-pen {
+	display: flex;
+	margin: 10px 0px 0px 27px;
+}
+
+.edit-button {
 	cursor: pointer;
 	border: none;
 	display: flex;
@@ -212,18 +215,11 @@ li a:hover {
 	align-items: center;
 	height: fit-content;
 	margin-top: 7px;
-	padding-left: 30px;
-}
-
-
-.Modifier i {
-	padding-right: 12px;
-}
-
-.Modifier p {
+	padding-left: 7px;
 	font-family: 'Work Sans' ;
 	font-size: 16px;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
