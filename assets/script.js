@@ -30,6 +30,7 @@ function callApiWorks (filter) {
     // sinon on met tout les projets ensemble
         const filteredProjects = filter && filter !== 'Tous' ? projects.filter(project => project.category.name === filter): projects
         createGallery(filteredProjects) 
+        createGalleryModal(projects) // affiche ma gallery dans ma modal
     })
 }
 
@@ -142,8 +143,7 @@ function createButtonEditProject() {
     btnFilters.innerHTML = '' ;
 
     editButton.addEventListener('click', function () {  
-        modal.style = 'display: flex';
-        
+        modal.style = 'display: flex';   
     })
     
 }
@@ -159,3 +159,27 @@ function closeModal() {
 // ************************* MODAL *************************** //
 
 const token = localStorage.getItem('token');
+const galleryModal = document.querySelector('.gallery-modal');
+
+function createGalleryModal(projects) {
+    projects.forEach(projectModal => {
+        
+        const figure = document.createElement('figure');
+        figure.classList.add('modal-picture');
+        figure.dataset.id = projectModal.id;
+        galleryModal.appendChild(figure);
+        
+        const img = document.createElement('img');
+        figure.appendChild(img);
+        
+        const iconContainer = document.createElement('span');
+        figure.appendChild(iconContainer);
+        const trashIcon = document.createElement('i');
+                    
+        iconContainer.appendChild(trashIcon);
+        img.src = projectModal.imageUrl;
+        img.setAttribute('alt', projectModal.title);
+        trashIcon.classList.add('fa-solid', 'fa-trash-can', 'fa-stack-1x', 'tarsh');
+        
+    });
+};
