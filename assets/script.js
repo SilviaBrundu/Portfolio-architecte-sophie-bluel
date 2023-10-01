@@ -86,6 +86,8 @@ function displayAuthElements() {
     createBlackBarEditionMode()
     createButtonEditProject()
     closeModal()
+    addModal2()
+    addProjectModal ()
 
     const login = document.getElementById('login')
     login.innerHTML = 'logout'   //creation du logout
@@ -210,3 +212,80 @@ function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les do
         }
       })
   }
+
+const modal1 = document.querySelector('.modal-1');
+const modal2 = document.querySelector('.modal-2');
+
+function addModal2 () {
+    const arrowIcon = document.querySelector('.button-left-modal');
+
+
+    arrowIcon.addEventListener('click', function () {
+        modal1.style = 'display:flex'
+        modal2.style = 'display:none'
+    })
+
+    const btnAddPicture = document.querySelector('.button-add-picture');
+    btnAddPicture.addEventListener('click', function () {
+        modal1.style = 'display:none'
+        modal2.style = 'display:flex'        
+    })
+}
+
+const photoAdd = document.querySelector('.photo-add')
+const formAdd = document.querySelector('.form-add')
+
+function addProjectModal () {
+    const photoIconModal = document.createElement('i');// AJout de l'icone 
+    photoIconModal.innerHTML = '<i class="fa-sharp fa-regular fa-image sharpIcon"></i>';
+    photoAdd.appendChild(photoIconModal);
+
+    const addPhotoButton = document.createElement('button');// Ajout du bouton pour ajouter une photo
+    addPhotoButton.type = 'button';
+    addPhotoButton.classList.add('add-button');
+    addPhotoButton.textContent = '+ Ajouter photo';
+    photoAdd.appendChild(addPhotoButton);
+
+    const addPhotoInput = document.createElement('input');// Ajout de l'input pour la photo
+    addPhotoInput.type = 'file'; //p ermet de telecharger un fichier
+    addPhotoInput.name = 'photo';
+    addPhotoInput.style.display = 'none';
+    photoAdd.appendChild(addPhotoInput);
+
+    const addPhotoFormat = document.createElement('p'); // Ajout du format d'image
+    addPhotoFormat.classList.add('addPhotoFormat');
+    addPhotoFormat.textContent = "jpg, png : 4mo max";
+    photoAdd.appendChild(addPhotoFormat);
+
+    const titrePhoto = document.createElement('label');// Ajout de l'input pour le titre
+    titrePhoto.textContent = 'Titre';
+    formAdd.appendChild(titrePhoto);
+
+    const titreInput = document.createElement('input');
+    titreInput.type = 'text';
+    titreInput.name = 'titre';
+    formAdd.appendChild(titreInput);
+
+    const categoriePhoto = document.createElement('label');// Ajout de l'input pour la catégorie
+    categoriePhoto.textContent = 'Catégorie';
+    formAdd.appendChild(categoriePhoto);
+
+    const categorieSelect = document.createElement('select');
+    categorieSelect.name = 'categorie';
+    formAdd.appendChild(categorieSelect);
+
+    const categorie1 = document.createElement('option');// Ajout des options de la catégorie
+    categorie1.value = '1';
+    categorie1.textContent = '1 - Objets';
+    categorieSelect.appendChild(categorie1);
+
+    const categorie2 = document.createElement('option');
+    categorie2.value = '2';
+    categorie2.textContent = '2 - Appartements';
+    categorieSelect.appendChild(categorie2);
+
+    const categorie3 = document.createElement('option');
+    categorie3.value = '3';
+    categorie3.textContent = '3 - Hotels & restaurants';
+    categorieSelect.appendChild(categorie3);
+}    
