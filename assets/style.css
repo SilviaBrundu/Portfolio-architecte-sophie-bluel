@@ -35,6 +35,7 @@ html {
 	flex-direction: column;
 	height: 100%;
 }
+
 body {
 	line-height: 1;
 	background-color: #fffef8;
@@ -230,7 +231,6 @@ li a:hover {
 
 .gallery img {
 	width: 100%;
-
 }
 
 .categories {
