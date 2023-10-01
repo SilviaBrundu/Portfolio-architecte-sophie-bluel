@@ -1,45 +1,37 @@
+const modal = document.querySelector('.modal');
 callApiWorks();
 
-// création du lien avec l api via fetch
-// on récupère les données avec then et on utilise json
-fetch('http://localhost:5678/api/categories')
-    .then(response => response.json())
-    .then(categories => {
-        createButton(categories)
-        let buttons = document.querySelectorAll('.category')
-        // i = 0 si i est inférieur au nombre de catégorie alors on rajoute une catégorie 
-        // jusqu'a ce que toutes les catégories soient mises
-        for (let i = 0; i < buttons.length; i++){
-            // permet d'dentitifer les noms des catégories dans chacun des boutons
-            buttons[i].addEventListener('click', (event) => {
-            // on associe les noms des catégories de chaque projet au noms des categories des boutons
-            callApiWorks(event.target.textContent);     
-            })    
-        }
-        const isAuth = localStorage.getItem('token') && localStorage.getItem('userId')
-        if (isAuth) {
-            displayAuthElements(buttons)
-        }
-    })
+fetch('http://localhost:5678/api/categories')// création du lien avec l api via fetch
+.then(response => response.json())// on récupère les données avec then et on utilise json
+.then(categories => {
+    createButton(categories)
+    let buttons = document.querySelectorAll('.category')
+    for (let i = 0; i < buttons.length; i++){
+        buttons[i].addEventListener('click', (event) => {// permet d'dentitifer les noms des catégories dans chacun des boutons
+        callApiWorks(event.target.textContent); // on associe les noms des catégories de chaque projet au noms des categories des boutons    
+        })    
+    }
+    const isAuth = localStorage.getItem('token') && localStorage.getItem('userId')
+    if (isAuth) {
+        displayAuthElements(buttons)
+    }
+})
     
 function callApiWorks (filter) {
     fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(projects => {
-    // si ça correspond filter et filter qui n'est pas égale à "tous" ont trie les projets en fonction du nom de la catégorie
-    // sinon on met tout les projets ensemble
+        // si ça correspond filter et filter qui n'est pas égale à "tous" ont trie les projets en fonction du nom de la catégorie
+        // sinon on met tout les projets ensemble
         const filteredProjects = filter && filter !== 'Tous' ? projects.filter(project => project.category.name === filter): projects
         createGallery(filteredProjects) 
         createGalleryModal(projects) // affiche ma gallery dans ma modal
     })
 }
 
-// on crée la fonction qui va afficher les images de la galerie
-// on vide la galerie pour ne pas avoir les images qui s'accumulent grace 
-// au innerHTML (qui permet de modifier le contenu du dom) et d'une
-// chaine de caractère vide
-function createGallery(project){ 
-    document.querySelector('.gallery').innerHTML = ''
+function createGallery(project){ // on crée la fonction qui va afficher les images de la galerie
+    document.querySelector('.gallery').innerHTML = ''// on vide la galerie pour ne pas avoir les images qui s'accumulent
+
     for (let i = 0; i < project.length; i ++) {
         const gallery = document.querySelector('.gallery')
         const cards = document.createElement ('figure')
@@ -67,7 +59,6 @@ function createButton(categories) {  //fonction qui crée les boutons
     buttonAll.classList.add('category')
     divButton.appendChild(buttonAll)
 
-
     categories.forEach(category => { //création des 3 boutons différents
         const filtersButton = document.createElement('button')
         filtersButton.textContent = category.name
@@ -75,14 +66,12 @@ function createButton(categories) {  //fonction qui crée les boutons
         divButton.appendChild(filtersButton)
     })
 
-    //permet de placer correctement la div divButton
-    portfolio.insertBefore(divButton,portfolio.children[1])  
+    portfolio.insertBefore(divButton,portfolio.children[1])  //permet de placer correctement la div divButton
 }
 
+// *******************$* Affichage Editeur ************************ //
 
-// ******Affichage Editeur *****
 function displayAuthElements() {
-
     createBlackBarEditionMode()
     createButtonEditProject()
     closeModal()
@@ -101,9 +90,7 @@ function displayAuthElements() {
     })
 }
 
-// fonction qui crée la barre noire
-
-function createBlackBarEditionMode() {
+function createBlackBarEditionMode() {// fonction qui crée la barre noire
     const editBlackbar = document.createElement('div'); 
     editBlackbar.classList.add('edit-blackbar');
     document.body.appendChild(editBlackbar);  
@@ -125,11 +112,7 @@ function createBlackBarEditionMode() {
     document.body.insertBefore(editBlackbar,document.body.children[0]);//place la div ou je veut dans le dom
 }
 
-const modal = document.querySelector('.modal');
-
-// fonction qui crée le bouton modifier
-
-function createButtonEditProject() {
+function createButtonEditProject() {// fonction qui crée le bouton modifier
     const editProject = document.querySelector('.edit-project'); //creation bouton modifier
 
     const iconPen2 = document.createElement("i"); //creation iconpen
@@ -148,11 +131,9 @@ function createButtonEditProject() {
     editButton.addEventListener('click', function () {  
         modal.style = 'display: flex';   
     })
-    
 }
 
 function closeModal() {
-
     const closeButton = document.querySelector('.button-close-modal');
     closeButton.addEventListener('click', function () {
         modal.style = 'display: none';
@@ -163,10 +144,14 @@ function closeModal() {
 
 const token = localStorage.getItem('token');
 const galleryModal = document.querySelector('.gallery-modal');
+const modal1 = document.querySelector('.modal-1');
+const modal2 = document.querySelector('.modal-2');
+const arrowIcon = document.querySelector('.button-left-modal');
+const photoAdd = document.querySelector('.photo-add')
+const formAdd = document.querySelector('.form-add')
 
 function createGalleryModal(projects) {
     projects.forEach(projectModal => {
-        
         const figure = document.createElement('figure');
         figure.classList.add('modal-picture');
         figure.dataset.id = projectModal.id;
@@ -193,11 +178,9 @@ function createGalleryModal(projects) {
 };
 
 function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les données du projets 
-    const token = localStorage.getItem("token");
-  
     fetch(`http://localhost:5678/api/works/${id}`, { 
-      method: "DELETE",
-      headers: {
+        method: "DELETE",
+        headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -206,20 +189,14 @@ function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les do
       .then((reponse) => {
         if (reponse.status === 204) {
             trashIcon.remove(figure) 
-          console.log("project deleted");
+            console.log("project deleted");
         } else {
-          alert("project deletion error");
+            alert("project deletion error");
         }
-      })
-  }
-
-const modal1 = document.querySelector('.modal-1');
-const modal2 = document.querySelector('.modal-2');
+    })
+}
 
 function addModal2 () {
-    const arrowIcon = document.querySelector('.button-left-modal');
-
-
     arrowIcon.addEventListener('click', function () {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
@@ -231,9 +208,6 @@ function addModal2 () {
         modal2.style = 'display:flex'        
     })
 }
-
-const photoAdd = document.querySelector('.photo-add')
-const formAdd = document.querySelector('.form-add')
 
 function addProjectModal () {
     const photoIconModal = document.createElement('i');// AJout de l'icone 
@@ -247,7 +221,7 @@ function addProjectModal () {
     photoAdd.appendChild(addPhotoButton);
 
     const addPhotoInput = document.createElement('input');// Ajout de l'input pour la photo
-    addPhotoInput.type = 'file'; //p ermet de telecharger un fichier
+    addPhotoInput.type = 'file'; //permet de telecharger un fichier
     addPhotoInput.name = 'photo';
     addPhotoInput.style.display = 'none';
     photoAdd.appendChild(addPhotoInput);
