@@ -37,8 +37,12 @@
     position: absolute;
     top: 4%;
     left: 93%;
+    transition: transform 450ms;
 }
 
+.icon-modal:hover {
+    transform: scale(1.25);
+}
 #title-modal-1,
 #title-modal-2 {
     color: black;
@@ -108,3 +112,5 @@
     width: 84%;
     
 }
+
+
