@@ -17,7 +17,7 @@ fetch('http://localhost:5678/api/categories')// création du lien avec l api via
     }
 })
     
-function callApiWorks (filter) {
+function callApiWorks(filter) {
     fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(projects => {
@@ -34,14 +34,14 @@ function createGallery(project){ // on crée la fonction qui va afficher les ima
 
     for (let i = 0; i < project.length; i ++) {
         const gallery = document.querySelector('.gallery')
-        const cards = document.createElement ('figure')
+        const cards = document.createElement('figure')
         gallery.appendChild(cards)
 
-        const image = document.createElement ('img')
+        const image = document.createElement('img')
         image.src = project[i].imageUrl
         cards.appendChild(image)
 
-        const title = document.createElement ('figcaption')
+        const title = document.createElement('figcaption')
         title.innerHTML = project[i].title
         cards.appendChild(title)
         console.log(project)
@@ -82,7 +82,7 @@ function displayAuthElements() {
     login.innerHTML = 'logout'   //creation du logout
     login.href = '#'
 
-    login.addEventListener('click', function (event) { // des que je click sur logout 
+    login.addEventListener('click', function(event) { // des que je click sur logout 
         event.preventDefault(); 
         localStorage.clear(); // tout se vide et se reinitialise 
         location.reload(); 
@@ -128,14 +128,14 @@ function createButtonEditProject() {// fonction qui crée le bouton modifier
     const btnFilters = document.querySelector('.categories'); //cache les boutons des filtres
     btnFilters.innerHTML = '' ;
 
-    editButton.addEventListener('click', function () {  
+    editButton.addEventListener('click', function() {  
         modal.style = 'display: flex';   
     })
 }
 
 function closeModal() {
     const closeButton = document.querySelector('.button-close-modal');
-    closeButton.addEventListener('click', function () {
+    closeButton.addEventListener('click', function() {
         modal.style = 'display: none';
     })
 }
@@ -196,20 +196,20 @@ function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les do
     })
 }
 
-function addModal2 () {
-    arrowIcon.addEventListener('click', function () {
+function addModal2() {
+    arrowIcon.addEventListener('click', function() {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
     })
 
     const btnAddPicture = document.querySelector('.button-add-picture');
-    btnAddPicture.addEventListener('click', function () {
+    btnAddPicture.addEventListener('click', function() {
         modal1.style = 'display:none'
         modal2.style = 'display:flex'        
     })
 }
 
-function addProjectModal () {
+function addProjectModal() {
     const photoIconModal = document.createElement('i');// AJout de l'icone 
     photoIconModal.innerHTML = '<i class="fa-sharp fa-regular fa-image sharpIcon"></i>';
     photoAdd.appendChild(photoIconModal);

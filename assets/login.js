@@ -3,7 +3,7 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const error = document.getElementById('error')
 
-login.addEventListener('submit', function (event) {//création evenement type submit
+login.addEventListener('submit', function(event) {//création evenement type submit
   event.preventDefault(); // permet de retirer l'envoie du formulaire par default
   const loginId = { email: email.value, password: password.value,};
   //if (!email.value.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) { // valider une adresse mail en imposant
