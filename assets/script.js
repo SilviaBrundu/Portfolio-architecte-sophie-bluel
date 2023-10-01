@@ -5,8 +5,8 @@ callApiWorks();
 fetch('http://localhost:5678/api/categories')
     .then(response => response.json())
     .then(categories => {
-        createButton(categories);
-        let buttons = document.querySelectorAll('.category');
+        createButton(categories)
+        let buttons = document.querySelectorAll('.category')
         // i = 0 si i est inférieur au nombre de catégorie alors on rajoute une catégorie 
         // jusqu'a ce que toutes les catégories soient mises
         for (let i = 0; i < buttons.length; i++){
@@ -16,9 +16,9 @@ fetch('http://localhost:5678/api/categories')
             callApiWorks(event.target.textContent);     
             })    
         }
-        const isAuth = localStorage.getItem('token') && localStorage.getItem('userId');
+        const isAuth = localStorage.getItem('token') && localStorage.getItem('userId')
         if (isAuth) {
-            displayAuthElements(buttons);
+            displayAuthElements(buttons)
         }
     })
     
@@ -39,56 +39,57 @@ function callApiWorks (filter) {
 // au innerHTML (qui permet de modifier le contenu du dom) et d'une
 // chaine de caractère vide
 function createGallery(project){ 
-    document.querySelector('.gallery').innerHTML = ''; 
+    document.querySelector('.gallery').innerHTML = ''
     for (let i = 0; i < project.length; i ++) {
-        const gallery = document.querySelector('.gallery');
-        const cards = document.createElement ('figure');
-        gallery.appendChild(cards);
+        const gallery = document.querySelector('.gallery')
+        const cards = document.createElement ('figure')
+        gallery.appendChild(cards)
 
-        const image = document.createElement ('img');
-        image.src = project[i].imageUrl;
-        cards.appendChild(image);
+        const image = document.createElement ('img')
+        image.src = project[i].imageUrl
+        cards.appendChild(image)
 
-        const title = document.createElement ('figcaption');
-        title.innerHTML = project[i].title;
-        cards.appendChild(title);
+        const title = document.createElement ('figcaption')
+        title.innerHTML = project[i].title
+        cards.appendChild(title)
+        console.log(project)
     }
 }
 
 function createButton(categories) {  //fonction qui crée les boutons
-    const portfolio = document.querySelector('#portfolio');
+    const portfolio = document.querySelector('#portfolio')
     const divButton = document.createElement('div');
-    divButton.classList.add('categories');
-    portfolio.appendChild(divButton); 
+    divButton.classList.add('categories')
+    portfolio.appendChild(divButton) 
 
-    const buttonAll = document.createElement('button');  //création du bouton "tous"
-    buttonAll.textContent = 'Tous';
-    buttonAll.classList.add('category');
-    divButton.appendChild(buttonAll);
+    const buttonAll = document.createElement('button')  //création du bouton "tous"
+    buttonAll.textContent = 'Tous'
+    buttonAll.classList.add('category')
+    divButton.appendChild(buttonAll)
 
 
     categories.forEach(category => { //création des 3 boutons différents
-        const filtersButton = document.createElement('button');
-        filtersButton.textContent = category.name;
-        filtersButton.classList.add('category');
-        divButton.appendChild(filtersButton);
+        const filtersButton = document.createElement('button')
+        filtersButton.textContent = category.name
+        filtersButton.classList.add('category')
+        divButton.appendChild(filtersButton)
     })
 
     //permet de placer correctement la div divButton
-    portfolio.insertBefore(divButton,portfolio.children[1]);  
+    portfolio.insertBefore(divButton,portfolio.children[1])  
 }
 
 
 // ******Affichage Editeur *****
 function displayAuthElements() {
 
-    createBlackBarEditionMode();
-    createButtonEditProject();
-    closeModal();
+    createBlackBarEditionMode()
+    createButtonEditProject()
+    closeModal()
 
-    const login = document.getElementById('login');
-    login.innerHTML = 'logout';   //creation du logout
-    login.href = '#';
+    const login = document.getElementById('login')
+    login.innerHTML = 'logout'   //creation du logout
+    login.href = '#'
 
     login.addEventListener('click', function (event) { // des que je click sur logout 
         event.preventDefault(); 
@@ -180,6 +181,32 @@ function createGalleryModal(projects) {
         img.src = projectModal.imageUrl;
         img.setAttribute('alt', projectModal.title);
         trashIcon.classList.add('fa-solid', 'fa-trash-can', 'fa-stack-1x', 'tarsh');
+
+        trashIcon.addEventListener('click', () => { 
+            const id = figure.dataset.id;
+            deleteProject(id, figure, trashIcon)
+        })
         
     });
 };
+
+function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les données du projets 
+    const token = localStorage.getItem("token");
+  
+    fetch(`http://localhost:5678/api/works/${id}`, { 
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((reponse) => {
+        if (reponse.status === 204) {
+            trashIcon.remove(figure) 
+          console.log("project deleted");
+        } else {
+          alert("project deletion error");
+        }
+      })
+  }
