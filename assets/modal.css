@@ -83,7 +83,7 @@
     grid-column-gap: 0.9em;
     grid-row-gap: 20px;
     margin-bottom: 45px;
-    height: 59%;
+    /* height: 59%; */
     max-width:71% ;
     width: 593px;
 }
