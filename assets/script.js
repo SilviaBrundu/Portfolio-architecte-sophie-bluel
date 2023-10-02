@@ -139,7 +139,6 @@ function closeModal() {
         modal.style = 'display: none';
     })
 }
-
 // ************************* MODAL *************************** //
 
 const token = localStorage.getItem('token');
@@ -149,6 +148,7 @@ const modal2 = document.querySelector('.modal-2');
 const arrowIcon = document.querySelector('.button-left-modal');
 const photoAdd = document.querySelector('.photo-add')
 const formAdd = document.querySelector('.form-add')
+const validation = document.querySelector('.button-validation')
 
 function createGalleryModal(projects) {
     projects.forEach(projectModal => {
@@ -177,7 +177,7 @@ function createGalleryModal(projects) {
     });
 };
 
-function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les données du projets 
+function deleteProject(id,figure) { //va permettre de supprimer les données du projets 
     fetch(`http://localhost:5678/api/works/${id}`, { 
         method: "DELETE",
         headers: {
@@ -188,7 +188,7 @@ function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les do
     })
       .then((reponse) => {
         if (reponse.status === 204) {
-            trashIcon.remove(figure) 
+            figure.remove() 
             console.log("project deleted");
         } else {
             alert("project deletion error");
@@ -197,6 +197,7 @@ function deleteProject(id,figure,trashIcon) { //va permettre de supprimer les do
 }
 
 function addModal2() {
+    
     arrowIcon.addEventListener('click', function() {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
@@ -262,4 +263,4 @@ function addProjectModal() {
     categorie3.value = '3';
     categorie3.textContent = '3 - Hotels & restaurants';
     categorieSelect.appendChild(categorie3);
-}    
+}
