@@ -132,13 +132,16 @@ function createButtonEditProject() {// fonction qui crée le bouton modifier
         modal.style = 'display: flex';   
     })
 }
-
 function closeModal() {
-    const closeButton = document.querySelector('.button-close-modal');
-    closeButton.addEventListener('click', function() {
-        modal.style = 'display: none';
-    })
-}
+    const closeButtons = document.querySelectorAll('.button-close-modal')
+    for (i = 0; i < closeButtons.length; i++) {
+        closeButtons[i].addEventListener("click", function () {
+        modal1.style ='display: none'
+        modal2.style ='display: none'
+        });
+    }
+};
+
 // ************************* MODAL *************************** //
 
 const token = localStorage.getItem('token');
