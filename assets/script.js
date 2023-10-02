@@ -39,6 +39,7 @@ function createGallery(project){ // on crée la fonction qui va afficher les ima
 
         const image = document.createElement('img')
         image.src = project[i].imageUrl
+        image.setAttribute('alt', project[i].title);
         cards.appendChild(image)
 
         const title = document.createElement('figcaption')
