@@ -1,4 +1,5 @@
 const modal = document.querySelector('.modal');
+const blackBackground = document.querySelector('.black-background')
 callApiWorks();
 
 fetch('http://localhost:5678/api/categories')// création du lien avec l api via fetch
@@ -130,7 +131,8 @@ function createButtonEditProject() {// fonction qui crée le bouton modifier
     btnFilters.innerHTML = '' ;
 
     editButton.addEventListener('click', function() {  
-        modal.style = 'display: flex';   
+        modal.style = 'display: flex'; 
+        blackBackground.style = 'display: flex';  
     })
 }
 function closeModal() {
@@ -139,6 +141,8 @@ function closeModal() {
         closeButtons[i].addEventListener("click", function () {
         modal1.style ='display: none'
         modal2.style ='display: none'
+        blackBackground.style ='display: none'
+        
         });
     }
 };
