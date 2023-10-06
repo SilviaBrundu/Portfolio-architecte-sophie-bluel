@@ -279,12 +279,11 @@ function addProjectModal() {
 
 const uploadForm = document.getElementById('upload-form')
 const errorMessage = document.getElementById('error-message')
-let gallery = document.querySelector('.gallery')
+const gallery = document.querySelector('.gallery')
 let imagesProject= []
 
 uploadForm.addEventListener('submit', function (event) { // evenement submit dans le formulaire
     event.preventDefault();
-            
     const titlePhoto = document.getElementById('title-photo').value;  
     const categoryPhoto = document.getElementById('category-photo').value; 
     const filePhoto = document.getElementById('input-file').files[0]; 
@@ -310,6 +309,7 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
     .then(data => {
         console.log(data)
         imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
+        uploadForm.reset() // remet le formulaire a zero 
         modal2.style.display = 'none' // on ferme la modal
         blackBackground.style = 'display: none'; // on enleve le fond sombre
         gallery.innerHTML += `
