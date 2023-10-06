@@ -1,5 +1,6 @@
 const modal = document.querySelector('.modal');
-const blackBackground = document.querySelector('.black-background')
+const blackBackground = document.querySelector('.black-background');
+
 callApiWorks();
 
 fetch('http://localhost:5678/api/categories')// création du lien avec l api via fetch
@@ -17,8 +18,8 @@ fetch('http://localhost:5678/api/categories')// création du lien avec l api via
         displayAuthElements(buttons)
     }
 })
-    
-function callApiWorks(filter) {
+
+function callApiWorks(filter){
     fetch('http://localhost:5678/api/works')
     .then(response => response.json()) 
     .then(projects => {
@@ -101,8 +102,8 @@ function createBlackBarEditionMode() {// fonction qui crée la barre noire
     edition.classList.add('edition');
     editBlackbar.appendChild(edition);
 
-    const iconPen = document.createElement("i"); //creation iconpen
-    iconPen.classList = "fa-solid fa-pen-to-square";
+    const iconPen = document.createElement('i'); //creation iconpen
+    iconPen.classList = 'fa-solid fa-pen-to-square';
     iconPen.setAttribute('id', 'icon-pen-edit-mode');
 
     const editionModeBtn = document.createElement('button');// creation bouton mode edition
@@ -117,8 +118,8 @@ function createBlackBarEditionMode() {// fonction qui crée la barre noire
 function createButtonEditProject() {// fonction qui crée le bouton modifier
     const editProject = document.querySelector('.edit-project'); //creation bouton modifier
 
-    const iconPen2 = document.createElement("i"); //creation iconpen
-    iconPen2.classList = "fa-solid fa-pen-to-square";
+    const iconPen2 = document.createElement('i'); //creation iconpen
+    iconPen2.classList = 'fa-solid fa-pen-to-square';
     iconPen2.setAttribute('id', 'icon-pen');
 
     const editButton = document.createElement('button');
@@ -135,14 +136,14 @@ function createButtonEditProject() {// fonction qui crée le bouton modifier
         blackBackground.style = 'display: flex';  
     })
 }
+
 function closeModal() {
     const closeButtons = document.querySelectorAll('.button-close-modal')
     for (i = 0; i < closeButtons.length; i++) {
-        closeButtons[i].addEventListener("click", function () {
+        closeButtons[i].addEventListener('click', function () {
         modal1.style ='display: none'
         modal2.style ='display: none'
         blackBackground.style ='display: none'
-        
         });
     }
 };
@@ -154,9 +155,9 @@ const galleryModal = document.querySelector('.gallery-modal');
 const modal1 = document.querySelector('.modal-1');
 const modal2 = document.querySelector('.modal-2');
 const arrowIcon = document.querySelector('.button-left-modal');
-const photoAdd = document.querySelector('.photo-add')
-const formAdd = document.querySelector('.form-add')
-const validation = document.querySelector('.button-validation')
+const photoAdd = document.querySelector('.photo-add');
+const formAdd = document.querySelector('.form-add');
+const validation = document.querySelector('.button-validation');
 
 function createGalleryModal(projects) {
     projects.forEach(projectModal => {
@@ -187,25 +188,24 @@ function createGalleryModal(projects) {
 
 function deleteProject(id,figure) { //va permettre de supprimer les données du projets 
     fetch(`http://localhost:5678/api/works/${id}`, { 
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     })
       .then((reponse) => {
         if (reponse.status === 204) {
             figure.remove() 
-            console.log("project deleted");
+            console.log('project deleted');
         } else {
-            alert("project deletion error");
+            alert('project deletion error');
         }
     })
 }
 
 function addModal2() {
-    
     arrowIcon.addEventListener('click', function() {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
@@ -220,19 +220,20 @@ function addModal2() {
 
 function addProjectModal() {
     const photoIconModal = document.createElement('i');// AJout de l'icone 
-    photoIconModal.innerHTML = '<i class="fa-sharp fa-regular fa-image sharpIcon"></i>';
+    photoIconModal.classList.add('fa-sharp', 'fa-regular', 'fa-image', 'sharpIcon');
     photoAdd.appendChild(photoIconModal);
 
     const addPhotoButton = document.createElement('button');// Ajout du bouton pour ajouter une photo
     addPhotoButton.type = 'button';
-    addPhotoButton.classList.add('add-button');
+    addPhotoButton.setAttribute('id','add-button');
     addPhotoButton.textContent = '+ Ajouter photo';
     photoAdd.appendChild(addPhotoButton);
 
     const addPhotoInput = document.createElement('input');// Ajout de l'input pour la photo
     addPhotoInput.type = 'file'; //permet de telecharger un fichier
-    addPhotoInput.name = 'photo';
-    addPhotoInput.style.display = 'none';
+    addPhotoInput.name = 'image';
+    addPhotoInput.accept = '.jpg, .jpeg, .png';
+    addPhotoInput.setAttribute('id','input-file')
     photoAdd.appendChild(addPhotoInput);
 
     const addPhotoFormat = document.createElement('p'); // Ajout du format d'image
@@ -247,6 +248,7 @@ function addProjectModal() {
     const titreInput = document.createElement('input');
     titreInput.type = 'text';
     titreInput.name = 'titre';
+    titreInput.setAttribute('id','title-photo')
     formAdd.appendChild(titreInput);
 
     const categoriePhoto = document.createElement('label');// Ajout de l'input pour la catégorie
@@ -255,6 +257,7 @@ function addProjectModal() {
 
     const categorieSelect = document.createElement('select');
     categorieSelect.name = 'categorie';
+    categorieSelect.setAttribute('id','category-photo');
     formAdd.appendChild(categorieSelect);
 
     const categorie1 = document.createElement('option');// Ajout des options de la catégorie
@@ -272,3 +275,53 @@ function addProjectModal() {
     categorie3.textContent = '3 - Hotels & restaurants';
     categorieSelect.appendChild(categorie3);
 }
+
+const uploadForm = document.getElementById('upload-form')
+const errorMessage = document.getElementById('error-message')
+let gallery = document.querySelector('.gallery')
+let imagesProject= []
+
+uploadForm.addEventListener('submit', function (event) { // evenement submit dans le formulaire
+    event.preventDefault();
+            
+    const titlePhoto = document.getElementById('title-photo').value;  
+    const categoryPhoto = document.getElementById('category-photo').value; 
+    const filePhoto = document.getElementById('input-file').files[0]; 
+
+    const data = new FormData();  // On ajoute les données du formulaire en tant que paire clé/value.
+
+    data.append('image',filePhoto);
+    data.append('title',titlePhoto);
+    data.append('category',categoryPhoto);
+
+    if (!titlePhoto || !categoryPhoto || !filePhoto) { //message d erreur si tout les champs ne sont pas rempli
+        errorMessage.innerText = 'Veuillez compléter les champs du formulaire';
+        errorMessage.style.display = 'block';
+        return;
+    }
+
+    fetch('http://localhost:5678/api/works', {
+          method:'POST', 
+          headers:{'Authorization': 'Bearer '+token},
+          body: data
+    })
+    .then(reponse => reponse.json())
+    .then(data => {
+        console.log(data)
+        imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
+        modal2.style.display = 'none' // on ferme la modal
+        blackBackground.style = 'display: none'; // on enleve le fond sombre
+        gallery.innerHTML += `
+        <figure data-id='${data.id}'>
+        <img src='${data.imageUrl}' alt='${data.title}'>
+        <figcaption>${data.title}</figcaption>
+        </figure> `
+    })  
+
+    .catch(error => {
+        console.error(error);
+        errorMessage.style.display = "block";
+    });  
+
+})
+        

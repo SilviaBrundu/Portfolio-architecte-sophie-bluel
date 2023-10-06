@@ -57,7 +57,7 @@
 				<input type="email" name="email" id="email">
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
-				<input type="submit" value="Envoyer">
+				<input class="submitPoject" type="submit" value="Envoyer">
 			</form>
 		</section>
 	</main>
@@ -83,17 +83,20 @@
 	</aside>
 	<!-- Modal 2 -->
 	<aside class="modal modal-2" aria-hidden="true" role="dialog" aria-labelledby="title-modal-2" style="display: none">
-		<div class="modal-wrapper">
-			<button class="button-left-modal icon-modal"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
-			<button class="button-close-modal icon-modal"><i class="fa-solid fa-xmark fa-xl" ></i></button>
-			<div class="body-modal">
-				<h2 id="title-modal-2">Ajout photo</h2>
-				<div class="photo-add"></div>
-				<div class="form-add"></div>
-				<div class="border"></div>
-				<button class="button-modal button-validation">Valider</a>
-			</div>	
-		</div>
+		<form action="#" method="dialog" id="upload-form">
+			<div class="modal-wrapper">
+				<button class="button-left-modal icon-modal"><i class="fa-solid fa-arrow-left fa-xl previous-arrow"></i></button>
+				<button class="button-close-modal icon-modal"><i class="fa-solid fa-xmark fa-xl" ></i></button>
+				<div class="body-modal">
+					<h2 id="title-modal-2">Ajout photo</h2>
+					<div class="photo-add"></div>
+					<div class="form-add"></div>
+					<div class="border"></div>
+					<div class="errorUpload" id="error-message"></div>
+					<button class="button-modal button-validation">Valider</button>
+				</div>	
+			</div>
+		</form>
 	</aside>
 	<script src="assets/script.js"></script>
 	<script src="assets/modal.js"></script>

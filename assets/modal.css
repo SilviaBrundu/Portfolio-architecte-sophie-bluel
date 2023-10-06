@@ -7,8 +7,8 @@
     height: 100vh;
     opacity: 0.5;
     display:none;
-    
 }
+
 .modal {
     display: flex;
     justify-content: center;
@@ -142,7 +142,11 @@
     margin: 27px 0 15px 0;
 }
 
-.add-button {
+#upload-form {
+    width: 100%;
+}
+
+#add-button {
     border: none;
     background-color: #bac4cc;
     color: #316585;
