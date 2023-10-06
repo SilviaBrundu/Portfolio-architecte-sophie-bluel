@@ -197,7 +197,8 @@ function deleteProject(id,figure) { //va permettre de supprimer les données du 
     })
       .then((reponse) => {
         if (reponse.status === 204) {
-            figure.remove() 
+            figure.remove()
+            document.querySelector('.gallery figure').remove()
             console.log('project deleted');
         } else {
             alert('project deletion error');
@@ -312,10 +313,8 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
         modal2.style.display = 'none' // on ferme la modal
         blackBackground.style = 'display: none'; // on enleve le fond sombre
         gallery.innerHTML += `
-        <figure data-id='${data.id}'>
         <img src='${data.imageUrl}' alt='${data.title}'>
-        <figcaption>${data.title}</figcaption>
-        </figure> `
+        <figcaption>${data.title}</figcaption> `
     })  
 
     .catch(error => {
