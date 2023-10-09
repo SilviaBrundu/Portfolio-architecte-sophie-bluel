@@ -346,8 +346,10 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
         modal2.style.display = 'none' // on ferme la modal
         blackBackground.style = 'display: none'; // on enleve le fond sombre
         gallery.innerHTML += `
+        <figure>
         <img src='${data.imageUrl}' alt='${data.title}'>
-        <figcaption>${data.title}</figcaption> `
+        <figcaption>${data.title}</figcaption>
+        <figure> `
         galleryModal.innerHTML += `
         <figure>
         <img src='${data.imageUrl}' alt='${data.title}'>
