@@ -79,7 +79,7 @@
     border: none;
     width: 250px;
     height: 37px;
-    margin-top: 30px;
+    margin: 30px;
     transition: transform 450ms, background-color 150ms;
 }  
 
@@ -145,22 +145,28 @@
 
 #upload-form {
     width: 100%;
+    overflow: scroll;
 }
 
-#add-button {
+.label-file  {
     border: none;
     background-color: #bac4cc;
     color: #316585;
     cursor: pointer;
-    width: 209px;
-    height: 17%;
+    width: 50%;
+    height: 40px;
     border-radius: 25px;
     font-family: 'work sans';
     font-size: 16px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 .addPhotoFormat {
-    margin-top: 12px;
+    margin: 12px;
+    position: relative;
+    top: -47px;
 }
 
 .form-add {
@@ -207,6 +213,16 @@
     object-fit: cover;
 }
 
+#input-file {
+    position: relative;
+    width: 50%;
+    padding: 14px 0;
+    opacity: 0;
+    cursor: pointer;
+    left: 2%;
+    top: -46px;
+}
+
 @media (max-width: 767.98px) {
     .modal {
         width: 74%;
@@ -234,8 +250,19 @@
         width: 84%;
     }
 
+    .photo-add {
+        width: 85%;
+    }
+
+    .label-file {
+        width: 70%;
+    }
+
     #error-message {
         margin: 26px 30px;
     }
-}
 
+    #input-filee {
+        width: 70%;
+    }
+}

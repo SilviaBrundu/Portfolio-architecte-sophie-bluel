@@ -242,11 +242,13 @@ function addProjectModal() {
     photoIconModal.classList.add('fa-sharp', 'fa-regular', 'fa-image', 'sharpIcon');
     photoAdd.appendChild(photoIconModal);
 
-    const addPhotoButton = document.createElement('button');// Ajout du bouton pour ajouter une photo
-    addPhotoButton.type = 'button';
-    addPhotoButton.setAttribute('id','add-button');
-    addPhotoButton.textContent = '+ Ajouter photo';
-    photoAdd.appendChild(addPhotoButton);
+    const addPhotoLabel = document.createElement('label');// Ajout du bouton pour ajouter une photo
+    addPhotoLabel.type = 'file';
+    addPhotoLabel.classList.add('label-file')
+    addPhotoLabel.setAttribute('for','file');
+
+    addPhotoLabel.textContent = '+ Ajouter photo';
+    photoAdd.appendChild(addPhotoLabel);
 
     const addPhotoInput = document.createElement('input');// Ajout de l'input pour la photo
     addPhotoInput.type = 'file'; //permet de telecharger un fichier
@@ -265,7 +267,7 @@ function addProjectModal() {
                 img.classList.add('img-preview');
                 photoIconModal.style.display = 'none';
                 addPhotoInput.style.display = 'none';
-                addPhotoButton.style.display = 'none';
+                addPhotoLabel.style.display = 'none';
                 addPhotoFormat.style.display = 'none';
                 divAddPhoto.appendChild(img);
             };
