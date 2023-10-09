@@ -18,6 +18,10 @@ fetch('http://localhost:5678/api/categories')// création du lien avec l api via
         displayAuthElements(buttons)
     }
 })
+.catch(error => {
+    console.log(error)
+    alert('une erreur est survenue')
+});
 
 function callApiWorks(filter){
     fetch('http://localhost:5678/api/works')
@@ -29,6 +33,10 @@ function callApiWorks(filter){
         createGallery(filteredProjects) 
         createGalleryModal(projects) // affiche ma gallery dans ma modal
     })
+    .catch(error => {
+        console.log(error)
+        alert('une erreur est survenue')
+    });  
 }
 
 function createGallery(project){ // on crée la fonction qui va afficher les images de la galerie
@@ -158,6 +166,7 @@ const arrowIcon = document.querySelector('.button-left-modal');
 const photoAdd = document.querySelector('.photo-add');
 const formAdd = document.querySelector('.form-add');
 const validation = document.querySelector('.button-validation');
+const errorDelete = document.querySelector('#error-delete')
 
 function createGalleryModal(projects) {
     projects.forEach(projectModal => {
@@ -195,15 +204,17 @@ function deleteProject(id,figure) { //va permettre de supprimer les données du 
         'Content-Type': 'application/json',
       },
     })
-      .then((reponse) => {
+    .then((reponse) => {
         if (reponse.status === 204) {
             figure.remove()
             document.querySelector('.gallery figure').remove()
-            console.log('project deleted');
-        } else {
-            alert('project deletion error');
+            console.log('projet supprimé');
         }
     })
+    .catch(error => {
+        console.log(error)
+        errorDelete.innerText = 'erreur dans la suppression du projet';
+    });  
 }
 
 function addModal2() {
@@ -220,6 +231,10 @@ function addModal2() {
 }
 
 function addProjectModal() {
+    const divAddPhoto = document.createElement('div');
+    divAddPhoto.setAttribute('class', 'divAddPhoto');
+    photoAdd.appendChild(divAddPhoto)
+
     const photoIconModal = document.createElement('i');// AJout de l'icone 
     photoIconModal.classList.add('fa-sharp', 'fa-regular', 'fa-image', 'sharpIcon');
     photoAdd.appendChild(photoIconModal);
@@ -236,6 +251,24 @@ function addProjectModal() {
     addPhotoInput.accept = '.jpg, .jpeg, .png';
     addPhotoInput.setAttribute('id','input-file')
     photoAdd.appendChild(addPhotoInput);
+
+    addPhotoInput.addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (event) { // lorsque le fichier a etait telecharger on effectuer la fonction suivante 
+                const img = document.createElement('img');
+                img.setAttribute('src', event.target.result);//nous pouvons accéder aux propriétés et attributs de l'élément img.
+                img.classList.add('img-preview');
+                photoIconModal.style.display = 'none';
+                addPhotoInput.style.display = 'none';
+                addPhotoButton.style.display = 'none';
+                addPhotoFormat.style.display = 'none';
+                divAddPhoto.appendChild(img);
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
 
     const addPhotoFormat = document.createElement('p'); // Ajout du format d'image
     addPhotoFormat.classList.add('addPhotoFormat');
@@ -315,8 +348,12 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
         gallery.innerHTML += `
         <img src='${data.imageUrl}' alt='${data.title}'>
         <figcaption>${data.title}</figcaption> `
+        galleryModal.innerHTML += `
+        <figure>
+        <img src='${data.imageUrl}' alt='${data.title}'>
+        </figure>
+         `
     })  
-
     .catch(error => {
         console.error(error);
         errorMessage.style.display = "block";

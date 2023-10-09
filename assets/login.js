@@ -1,7 +1,7 @@
 const login = document.querySelector('#login');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const error = document.getElementById('error')
+const errorLogin = document.getElementById('error-login')
 
 login.addEventListener('submit', function(event) {//création evenement type submit
   event.preventDefault(); // permet de retirer l'envoie du formulaire par default
@@ -15,18 +15,16 @@ login.addEventListener('submit', function(event) {//création evenement type sub
     headers: { 'Content-type' : 'application/json' },
     body: JSON.stringify(loginId), // stringify permet de convertir un object en une chaine de caractere
   })
-
   .then((response) => {// conditions qui affichent les messages d erreurs 
     console.log(response);
     if (response.status === 404)
-      error.innerHTML = 'User Not Found'
+      errorLogin.innerHTML = 'Utilisateur Non Trouvé'
     if (response.status === 401)
-      error.innerHTML = 'Not Authorized'
+      errorLogin.innerHTML = 'Pas Autorisé'
     if (response.status === 200) {
       return response.json();
     }
   })
-
   .then((data) => { // - récuperer les données , userId et token
     if (data) { //je crée ma condition qui affichera la page d'accueil si jai recuperé les données
       localStorage.setItem('userId', data.userId); // localStorage permet d'enregistrer les paires clé/valeur dans le navigateur.
@@ -34,5 +32,9 @@ login.addEventListener('submit', function(event) {//création evenement type sub
       location.href = 'index.html'; //redirige vers la page d 'accueil
     }
   })
+  .catch(error => {
+    console.log(error)
+    errorLogin.innerHTML = 'Impossible De Se Connecter'
 
+  });
 })
