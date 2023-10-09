@@ -351,22 +351,13 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
     })
     .then(reponse => reponse.json())
     .then(data => {
+        galleryModal.innerHTML = ''
+        callApiWorks()
         console.log(data)
         imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
         uploadForm.reset() // remet le formulaire a zero 
         modal2.style.display = 'none' // on ferme la modal
         blackBackground.style = 'display: none'; // on enleve le fond sombre
-        gallery.innerHTML += `
-        <figure>
-        <img src='${data.imageUrl}' alt='${data.title}'>
-        <figcaption>${data.title}</figcaption>
-        <figure> `
-        galleryModal.innerHTML += `
-        <figure>
-        <img src='${data.imageUrl}' alt='${data.title}'>
-        <span><i class='fa-solid fa-trash-can fa-stack-1x tarsh'></i></span>
-        </figure>
-         `
     })  
     .catch(error => {
         console.error(error);
