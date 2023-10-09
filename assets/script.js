@@ -1,5 +1,6 @@
 const modal = document.querySelector('.modal');
 const blackBackground = document.querySelector('.black-background');
+const errorMessages = document.getElementsByClassName('error-messages')
 
 callApiWorks();
 
@@ -20,7 +21,7 @@ fetch('http://localhost:5678/api/categories')// création du lien avec l api via
 })
 .catch(error => {
     console.log(error)
-    alert('une erreur est survenue')
+    errorMessages.innerHTML = 'Une erreur est survenue'
 });
 
 function callApiWorks(filter){
@@ -35,7 +36,7 @@ function callApiWorks(filter){
     })
     .catch(error => {
         console.log(error)
-        alert('une erreur est survenue')
+        errorMessages.innerHTML = 'Une erreur est survenue'
     });  
 }
 
