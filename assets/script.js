@@ -45,6 +45,7 @@ function createGallery(project){ // on crée la fonction qui va afficher les ima
     for (let i = 0; i < project.length; i ++) {
         const gallery = document.querySelector('.gallery')
         const cards = document.createElement('figure')
+        cards.setAttribute('data-id', project[i].id)  
         gallery.appendChild(cards)
 
         const image = document.createElement('img')
@@ -204,10 +205,11 @@ function deleteProject(id,figure) { //va permettre de supprimer les données du 
         'Content-Type': 'application/json',
       },
     })
-    .then((reponse) => {
-        if (reponse.status === 204) {
+    .then((response) => {
+        if (response.status === 204) {
             figure.remove()
-            document.querySelector('.gallery figure').remove()
+            const cardToLete = document.querySelector(`figure[data-id='${id}']`)
+            cardToLete.remove()
             console.log('projet supprimé');
         }
     })
