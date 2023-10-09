@@ -343,7 +343,7 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
 
     fetch('http://localhost:5678/api/works', {
           method:'POST', 
-          headers:{'Authorization': 'Bearer '+token},
+          headers:{Authorization: `Bearer ${token}`},
           body: data
     })
     .then(reponse => reponse.json())
