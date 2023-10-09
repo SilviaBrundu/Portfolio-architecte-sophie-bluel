@@ -6,9 +6,9 @@ const errorLogin = document.getElementById('error-login')
 login.addEventListener('submit', function(event) {//création evenement type submit
   event.preventDefault(); // permet de retirer l'envoie du formulaire par default
   const loginId = { email: email.value, password: password.value,};
-  //if (!email.value.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) { // valider une adresse mail en imposant
-  //  return false;                                                                                   // des caracteres speciaux etc
-  //}
+  if (!email.value.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) { // valider une adresse mail en imposant
+   return false;                                                                                   // des caracteres speciaux etc
+  }
 
   fetch("http://localhost:5678/api/users/login", { 
     method: 'POST',//je modifie le comportement par default et passe de get a post
