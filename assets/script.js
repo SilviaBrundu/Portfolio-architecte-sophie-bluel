@@ -353,13 +353,13 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
         galleryModal.innerHTML += `
         <figure>
         <img src='${data.imageUrl}' alt='${data.title}'>
+        <span><i class='fa-solid fa-trash-can fa-stack-1x tarsh'></i></span>
         </figure>
          `
     })  
     .catch(error => {
         console.error(error);
         errorMessage.style.display = "block";
-    });  
-
+    });
 })
         
