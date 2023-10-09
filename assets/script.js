@@ -330,8 +330,14 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
     data.append('category',categoryPhoto);
 
     if (!titlePhoto || !categoryPhoto || !filePhoto) { //message d erreur si tout les champs ne sont pas rempli
-        errorMessage.innerText = 'Veuillez compléter les champs du formulaire';
         errorMessage.style.display = 'block';
+        if (!titlePhoto) {
+            errorMessage.innerHTML = 'Veuillez ajouter un titre'
+        }   else if (!categoryPhoto) {
+                errorMessage.innerHTML = 'Veuillez choisir une categorie'
+            }   else if (!filePhoto) {
+                errorMessage.innerHTML = 'Veuillez ajouter une image'
+                }  
         return;
     }
 
