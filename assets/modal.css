@@ -79,7 +79,7 @@
     border: none;
     width: 250px;
     height: 37px;
-    margin: 30px;
+    margin: 15px 0 0 0;
     transition: transform 450ms, background-color 150ms;
 }  
 
@@ -132,7 +132,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #e8f1f6;
-    width: 70%;
+    width: 50%;
     height: 31%;
     border-radius: 8px;
 }
@@ -172,7 +172,7 @@
 .form-add {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 50%;
 }
 
 .form-add input,
@@ -241,7 +241,7 @@
     }
 
     .button-modal {
-        margin: 30px 0;
+        margin: 0;
         width: 70%;
         padding: 10px 0
     }
@@ -251,7 +251,15 @@
     }
 
     .photo-add {
-        width: 85%;
+        width: 70%;
+    }
+
+    .form-add {
+        width: 70%;
+    }
+
+    .form-add select {
+        margin: 0 0px 33px 0;
     }
 
     .label-file {
@@ -265,4 +273,6 @@
     #input-filee {
         width: 70%;
     }
+
+
 }
