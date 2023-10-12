@@ -1,6 +1,7 @@
 const modal = document.querySelector('.modal');
 const blackBackground = document.querySelector('.black-background');
-const errorMessages = document.getElementsByClassName('error-messages')
+const errorMessages = document.getElementsByClassName('error-messages');
+const btnAddPicture = document.querySelector('.button-add-picture');
 
 callApiWorks();
 
@@ -88,8 +89,8 @@ function displayAuthElements() {
     createBlackBarEditionMode()
     createButtonEditProject()
     closeModal()
-    addModal2()
-    addProjectModal ()
+    changeModal()
+    addProjectModal () 
 
     const login = document.getElementById('login')
     login.innerHTML = 'logout'   //creation du logout
@@ -220,7 +221,7 @@ function deleteProject(id,figure) { //va permettre de supprimer les données du 
     });  
 }
 
-function addModal2() {
+function changeModal() {
     arrowIcon.addEventListener('click', function() {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
@@ -229,7 +230,7 @@ function addModal2() {
     const btnAddPicture = document.querySelector('.button-add-picture');
     btnAddPicture.addEventListener('click', function() {
         modal1.style = 'display:none'
-        modal2.style = 'display:flex'        
+        modal2.style = 'display:flex'           
     })
 }
 
@@ -315,53 +316,65 @@ function addProjectModal() {
     categorieSelect.appendChild(categorie3);
 }
 
+function imgPreviewReset() {
+    document.querySelector('.sharpIcon').style.display = 'none';
+    document.getElementById('input-file').style.display = 'none';
+    document.querySelector('.label-file').style.display = 'none';
+    document.querySelector('.addPhotoFormat').style.display = 'none';
+}
+
 const uploadForm = document.getElementById('upload-form')
 const errorMessage = document.getElementById('error-message')
 const gallery = document.querySelector('.gallery')
+const btnValidationForm = document.querySelector('.button-validation')
 let imagesProject= []
+
+
 
 uploadForm.addEventListener('submit', function (event) { // evenement submit dans le formulaire
     event.preventDefault();
-    const titlePhoto = document.getElementById('title-photo').value;  
-    const categoryPhoto = document.getElementById('category-photo').value; 
-    const filePhoto = document.getElementById('input-file').files[0]; 
 
-    const data = new FormData();  // On ajoute les données du formulaire en tant que paire clé/value.
+    btnValidationForm.addEventListener('click', function ()  {    
+        const titlePhoto = document.getElementById('title-photo').value;  
+        const categoryPhoto = document.getElementById('category-photo').value; 
+        const filePhoto = document.getElementById('input-file').files[0]; 
 
-    data.append('image',filePhoto);
-    data.append('title',titlePhoto);
-    data.append('category',categoryPhoto);
+        const data = new FormData();  // On ajoute les données du formulaire en tant que paire clé/value.
 
-    if (!titlePhoto || !categoryPhoto || !filePhoto) { //message d erreur si tout les champs ne sont pas rempli
-        errorMessage.style.display = 'block';
-        if (!titlePhoto) {
-            errorMessage.innerHTML = 'Veuillez ajouter un titre'
-        }   else if (!categoryPhoto) {
-                errorMessage.innerHTML = 'Veuillez choisir une categorie'
-            }   else if (!filePhoto) {
-                errorMessage.innerHTML = 'Veuillez ajouter une image'
-                }  
+        data.append('image',filePhoto);
+        data.append('title',titlePhoto);
+        data.append('category',categoryPhoto);
+
+        if (!titlePhoto || !categoryPhoto || !filePhoto) { //message d erreur si tout les champs ne sont pas rempli
+            errorMessage.style.display = 'block';
+            if (!titlePhoto) {
+                errorMessage.innerHTML = 'Veuillez ajouter un titre'
+            }   else if (!categoryPhoto) {
+                    errorMessage.innerHTML = 'Veuillez choisir une categorie'
+                }   else if (!filePhoto) {
+                    errorMessage.innerHTML = 'Veuillez ajouter une image'
+                    }  
         return;
-    }
+        }
 
-    fetch('http://localhost:5678/api/works', {
-          method:'POST', 
-          headers:{Authorization: `Bearer ${token}`},
-          body: data
-    })
-    .then(reponse => reponse.json())
-    .then(data => {
-        galleryModal.innerHTML = ''
-        callApiWorks()
-        console.log(data)
-        imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
-        uploadForm.reset() // remet le formulaire a zero 
-        modal2.style.display = 'none' // on ferme la modal
-        blackBackground.style = 'display: none'; // on enleve le fond sombre
-    })  
-    .catch(error => {
-        console.error(error);
-        errorMessage.style.display = "block";
-    });
-})
-        
+        fetch('http://localhost:5678/api/works', {
+            method:'POST', 
+            headers:{Authorization: `Bearer ${token}`},
+            body: data
+        })
+        .then(reponse => reponse.json())
+        .then(data => {
+            galleryModal.innerHTML = ''
+            callApiWorks()
+            console.log(data)
+            imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
+            uploadForm.reset() // remet le formulaire a zero 
+            modal2.style.display = 'none' // on ferme la modal
+            blackBackground.style = 'display: none'; // on enleve le fond sombre
+        })  
+        .catch(error => {
+            console.error(error);
+            errorMessage.style.display = "block";
+        });
+    })      
+})        
