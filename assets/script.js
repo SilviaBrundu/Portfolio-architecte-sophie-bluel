@@ -155,6 +155,7 @@ function closeModal() {
         modal1.style ='display: none'
         modal2.style ='display: none'
         blackBackground.style ='display: none'
+        imgPreviewReset()
         });
     }
 };
@@ -225,6 +226,7 @@ function changeModal() {
     arrowIcon.addEventListener('click', function() {
         modal1.style = 'display:flex'
         modal2.style = 'display:none'
+        imgPreviewReset()
     })
 
     const btnAddPicture = document.querySelector('.button-add-picture');
@@ -317,10 +319,11 @@ function addProjectModal() {
 }
 
 function imgPreviewReset() {
-    document.querySelector('.sharpIcon').style.display = 'none';
-    document.getElementById('input-file').style.display = 'none';
-    document.querySelector('.label-file').style.display = 'none';
-    document.querySelector('.addPhotoFormat').style.display = 'none';
+    document.querySelector('.divAddPhoto').innerHTML = ''
+    document.querySelector('.sharpIcon').style.display = 'flex';
+    document.getElementById('input-file').style.display = 'flex';
+    document.querySelector('.label-file').style.display = 'flex';
+    document.querySelector('.addPhotoFormat').style.display = 'flex';
 }
 
 const uploadForm = document.getElementById('upload-form')
@@ -366,6 +369,7 @@ uploadForm.addEventListener('submit', function (event) { // evenement submit dan
         .then(data => {
             galleryModal.innerHTML = ''
             callApiWorks()
+            imgPreviewReset()
             console.log(data)
             imagesProject.push(data)  // les photos sont ajoutées avec push() dans notre tableau 'imagesProject'.
             uploadForm.reset() // remet le formulaire a zero 
